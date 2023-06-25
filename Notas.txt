@@ -12,9 +12,12 @@
   - Baixar as dependências com o comando: npm install
   - Executar o projeto com o comando: npm run dev
   - Mexer somente o arquivo /src/App.vue!
+
   - Editar a função listarProdutos()
+
   - Editar a função removerProduto(produtoASerRemovido)
     - Nessa função a linha 92 deverá ser mantida!
+    
   - Editar a função cadastrarProduto()
     - Nessa função as linhas 112, 127 e 128 deverá ser mantida!
 

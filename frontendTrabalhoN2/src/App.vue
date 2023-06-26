@@ -6,7 +6,7 @@
         <v-form fast-fail @submit.prevent>
           <v-text-field v-model="produto.nome" label="Nome do Produto"></v-text-field>
 
-          <v-text-field v-model="produto.preco" label="Preço do Produto" type="number"></v-text-field>
+          <v-text-field v-model="produto.preco" label="Preço do Produto" type="string"></v-text-field>
 
           <!-- Primeira Função - Cadastrar Produto -->
           <v-btn type="submit" color="primary" block class="mt-2" @click="cadastrarProduto(novoProduto)">Cadastrar</v-btn>
@@ -68,23 +68,16 @@ function listarProdutos() {
   console.log('- variaveis.erroAPI recebendo false se a requisição deu certo');
   console.log('- variaveis.erroAPI recebendo true se a requisição deu errado');
   console.log('Dica: vc deve fazer aqui o axios.get...');
-  // Faz uma requisição a um usuarío com um ID expecifico
-  //fazer GET no endpoint /produtos da API 
-  axios.get('/produtos')
-    .then(function (response) {
-      //Se der certo o GET atualizar:
-      // variaveis.produtos recebendo a resposta da API
-      variaveis.produtos = response;
-      // variaveis.erroAPI recebendo verdadeiro se a requisição deu certo
-      variaveis.erroAPI = true
 
+  axios.get('http://localhost:3000/produtos')
+    .then(function (response) {
+      variaveis.produtos = response.data;
+      variaveis.erroAPI = false
       console.log(response);
-    })
-    .catch(function (error) {
-      variaveis.erroAPI = false;
     })
     .catch((error) => {
       variaveis.erroAPI = true;
+      console.log(error);
     });
 }
 
@@ -98,18 +91,15 @@ function removerProduto(produtoASerRemovido) {
   console.log('Dica: vc deve fazer aqui o axios.delete...');
   console.log(produtoASerRemovido);
 
-  axios.delete('/produtos', produtoASerRemovido)
+  axios.delete('http://localhost:3000/produtos', produtoASerRemovido)
     .then((res) => {
       listarProdutos()
+      variaveis.erroAPI = false;
     })
     .catch((error) => {
       variaveis.erroAPI = true;
     })
-  //O objeto produtoASerRemovido já é o que deve ser passado na requisição
 
-  //Dica: vc deve fazer aqui o axios.delete...
-  //Para exemplo de como fazer requisição DELETE no axios:
-  //https://masteringjs.io/tutorials/axios/delete-with-body
 }
 
 function cadastrarProduto() {
@@ -119,10 +109,22 @@ function cadastrarProduto() {
   console.log('passando como parâmetro a constante novoProduto');
   console.log('Dica: vc deve fazer aqui o axios.post...');
   console.log(novoProduto);
-  //fazer POST no endpoint /produtos da API
-  //passando como parâmetro a constante novoProduto
 
-  //https://axios-http.com/ptbr/docs/post_example
+  axios.post('http://localhost:3000/produtos', {
+    nome: produto.nome,
+    preco: produto.preco
+  })
+    .then((res) => {
+      variaveis.produtos = novoProduto;
+      variaveis.erroAPI = false;
+      listarProdutos();
+      console.log(res);
+    })
+    .catch((error) => {
+      variaveis.erroAPI = true;
+      console.log(error);
+    })
+
   produto.nome = ''; //não mexer
   produto.preco = ''; //não mexer
 

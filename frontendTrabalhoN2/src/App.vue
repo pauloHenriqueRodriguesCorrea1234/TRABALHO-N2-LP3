@@ -71,7 +71,7 @@ function listarProdutos() {
   // Faz uma requisição a um usuarío com um ID expecifico
   //fazer GET no endpoint /produtos da API 
   axios.get('/produtos')
-    .then(function (response) {
+    .then((response) => {
       //Se der certo o GET atualizar:
       // variaveis.produtos recebendo a resposta da API
       variaveis.produtos = response;
@@ -118,6 +118,16 @@ function cadastrarProduto() {
   console.log('passando como parâmetro a constante novoProduto');
   console.log('Dica: vc deve fazer aqui o axios.post...');
   console.log(novoProduto);
+
+  axios.post('/produtos', {
+    
+  })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   //fazer POST no endpoint /produtos da API
   //passando como parâmetro a constante novoProduto
 

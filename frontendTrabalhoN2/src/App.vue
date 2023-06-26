@@ -64,7 +64,7 @@ const variaveis = reactive({
 function listarProdutos() {
   axios.get('http://localhost:3000/produtos')
     .then((res) => {
-      variaveis.produtos = response.data;
+      variaveis.produtos = res.data;
       variaveis.erroAPI = false;
     })
     .catch((error) => {
